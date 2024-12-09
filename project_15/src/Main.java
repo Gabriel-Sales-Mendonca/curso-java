@@ -49,5 +49,7 @@ public class Main {
         }
 
         System.out.printf("TOTAL TAXES: $ %.2f", sum);
+
+        sc.close();
     }
 }

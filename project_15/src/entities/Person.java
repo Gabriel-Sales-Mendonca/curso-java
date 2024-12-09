@@ -1,7 +1,7 @@
 package entities;
 
 public abstract class Person {
-    private String name;
+    protected String name;
     protected Double incomeAnual;
 
     public Person(String name, Double incomeAnual) {

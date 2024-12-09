@@ -24,7 +24,13 @@ public class PersonPhysics extends Person {
             return (0.15 * incomeAnual) - (0.5 * spentWithHealth);
         }
         else {
-            return (0.20 * incomeAnual) - (0.5 * spentWithHealth);
+            return (0.25 * incomeAnual) - (0.5 * spentWithHealth);
         }
+    }
+
+    @Override
+    public String toString() {
+        return name + ": $ "
+                + String.format("%.2f", tax());
     }
 }

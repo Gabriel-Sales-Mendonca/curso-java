@@ -26,4 +26,10 @@ public class PersonLegal extends Person {
             return incomeAnual * 0.14;
         }
     }
+
+    @Override
+    public String toString() {
+        return name + ": $ "
+                + String.format("%.2f", tax());
+    }
 }

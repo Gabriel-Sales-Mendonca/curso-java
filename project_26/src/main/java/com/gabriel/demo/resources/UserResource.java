@@ -1,18 +1,25 @@
 package com.gabriel.demo.resources;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import com.gabriel.demo.entities.User;
+import com.gabriel.demo.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
 
+    @Autowired
+    private UserService service;
+
     @GetMapping
-    public ResponseEntity<User> findAll() {
-        User user = new User(1L, "Maria", "maria@gmail.com", "999999999", "123456");
-        return ResponseEntity.ok().body(user);
+    public ResponseEntity<List<User>> findAll() {
+        List<User> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
 }

@@ -14,12 +14,17 @@ public class Order {
     private Integer id;
     private Instant moment;
 
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private User client;
+
     public Order() {
     }
 
-    public Order(Integer id, Instant moment) {
+    public Order(Integer id, Instant moment, User client) {
         this.id = id;
         this.moment = moment;
+        this.client = client;
     }
 
     public Integer getId() {
@@ -36,6 +41,14 @@ public class Order {
 
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
     }
 
     @Override

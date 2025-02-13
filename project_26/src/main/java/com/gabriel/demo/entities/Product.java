@@ -1,5 +1,6 @@
 package com.gabriel.demo.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -24,6 +25,9 @@ public class Product {
         inverseJoinColumns = @JoinColumn(name = "category_id")
     )
     private Set<Category> categories = new HashSet<>();
+
+    @OneToMany(mappedBy = "id.product")
+    private Set<OrderItem> orders = new HashSet<>();
 
     public Product() {
     }
@@ -78,6 +82,15 @@ public class Product {
 
     public Set<Category> getCategories() {
         return categories;
+    }
+
+    @JsonIgnore
+    public Set<Order> getOrders() {
+        Set<Order> set = new HashSet<>();
+        for (OrderItem x : orders) {
+            set.add(x.getOrder());
+        }
+        return set;
     }
 
     @Override

@@ -1,15 +1,9 @@
 package com.gabriel.demo.config;
 
-import com.gabriel.demo.entities.Category;
-import com.gabriel.demo.entities.Order;
-import com.gabriel.demo.entities.Product;
+import com.gabriel.demo.entities.*;
 import com.gabriel.demo.entities.enums.OrderStatus;
-import com.gabriel.demo.repositories.CategoryRepository;
-import com.gabriel.demo.repositories.OrderRepository;
-import com.gabriel.demo.repositories.ProductRepository;
+import com.gabriel.demo.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.gabriel.demo.entities.User;
-import com.gabriel.demo.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -29,6 +23,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -63,5 +59,12 @@ public class TestConfig implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o2, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
     }
 }

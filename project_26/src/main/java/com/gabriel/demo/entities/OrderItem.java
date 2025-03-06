@@ -60,6 +60,10 @@ public class OrderItem {
         this.price = price;
     }
 
+    public Double getSubTotal() {
+        return getQuantity() * getPrice();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

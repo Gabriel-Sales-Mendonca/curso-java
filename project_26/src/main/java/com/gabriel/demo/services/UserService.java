@@ -1,9 +1,12 @@
 package com.gabriel.demo.services;
 
+import com.gabriel.demo.services.exceptions.DataBaseException;
 import com.gabriel.demo.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.gabriel.demo.entities.User;
 import com.gabriel.demo.repositories.UserRepository;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +32,15 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException(id);
+        }
+        catch (DataIntegrityViolationException e) {
+            throw new DataBaseException(e.getMessage());
+        }
     }
 
     public User update(Long id, User obj) {

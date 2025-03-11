@@ -2,6 +2,7 @@ package com.gabriel.demo.services;
 
 import com.gabriel.demo.services.exceptions.DataBaseException;
 import com.gabriel.demo.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.gabriel.demo.entities.User;
 import com.gabriel.demo.repositories.UserRepository;
@@ -44,9 +45,14 @@ public class UserService {
     }
 
     public User update(Long id, User obj) {
-        User entity = repository.getReferenceById(id);
-        updateData(entity, obj);
-        return repository.save(entity);
+        try {
+            User entity = repository.getReferenceById(id);
+            updateData(entity, obj);
+            return repository.save(entity);
+        }
+        catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     public void updateData(User entity, User obj) {

@@ -1,6 +1,7 @@
 package com.gabrielsales.workshop.controllers;
 
 import com.gabrielsales.workshop.domain.User;
+import com.gabrielsales.workshop.dto.UserDTO;
 import com.gabrielsales.workshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,10 @@ public class UserController {
     private UserService service;
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserDTO>> findAll() {
         List<User> users = service.findAll();
-        return ResponseEntity.ok().body(users);
+        List<UserDTO> userDTO = users.stream().map(user -> new UserDTO(user)).toList();
+        return ResponseEntity.ok().body(userDTO);
     }
 
 }

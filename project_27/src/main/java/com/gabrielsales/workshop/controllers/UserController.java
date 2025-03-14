@@ -46,4 +46,11 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping
+    public ResponseEntity<User> update(@RequestBody UserDTO obj) {
+        User user = service.fromDTO(obj);
+        User userUpdated = service.update(user);
+        return ResponseEntity.ok().body(userUpdated);
+    }
+
 }

@@ -5,11 +5,8 @@ import com.gabrielsales.workshop.dto.UserDTO;
 import com.gabrielsales.workshop.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -24,6 +21,12 @@ public class UserController {
         List<User> users = service.findAll();
         List<UserDTO> userDTO = users.stream().map(user -> new UserDTO(user)).toList();
         return ResponseEntity.ok().body(userDTO);
+    }
+
+    @GetMapping("/{id}")
+    public UserDTO findById(@PathVariable String id) {
+        User user = service.findById(id);
+        return new UserDTO(user);
     }
 
 }

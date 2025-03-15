@@ -1,5 +1,6 @@
 package com.gabrielsales.workshop.controllers;
 
+import com.gabrielsales.workshop.domain.Post;
 import com.gabrielsales.workshop.domain.User;
 import com.gabrielsales.workshop.dto.UserDTO;
 import com.gabrielsales.workshop.services.UserService;
@@ -29,6 +30,13 @@ public class UserController {
     public UserDTO findById(@PathVariable String id) {
         User user = service.findById(id);
         return new UserDTO(user);
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> listPosts(@PathVariable String id) {
+        User user = service.findById(id);
+        List<Post> posts = user.getPosts();
+        return ResponseEntity.ok().body(posts);
     }
 
     @PostMapping
